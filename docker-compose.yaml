@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  opendevin:
+    image: ghcr.io/opendevin/opendevin:0.5
+    pull_policy: always # "pull_policy" is used in Compose V2
+    environment:
+      - SANDBOX_USER_ID=1000 # Use docker-compose run with environment variables defined
+      - WORKSPACE_MOUNT_PATH="./volumes/workspace"
+    volumes:
+      - ./volumes/workspace:/opt/workspace_base
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "3141:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
